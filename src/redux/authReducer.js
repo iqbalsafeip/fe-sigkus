@@ -1,7 +1,8 @@
 const initialState = {
-  is_login: true,
+  is_login: false,
   users: [],
   roles: "Customer",
+  user: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -28,6 +29,12 @@ const authReducer = (state = initialState, action) => {
             : _data
         ),
       };
+    case "SET_USER": {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    }
     default:
       return state;
   }

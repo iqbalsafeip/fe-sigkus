@@ -8,8 +8,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(isLogin());
-    document.title = auth.roles + " Dashboard";
   }, []);
+  useEffect(() => {
+    document.title = auth.user?.peran + " Dashboard";
+  }, [auth]);
 
   return (
     <Route

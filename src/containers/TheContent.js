@@ -19,9 +19,10 @@ const loading = (
 
 const TheContent = () => {
   const [displayRoutes, setRoutes] = useState([]);
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth.user);
+  console.log(auth);
   useEffect(() => {
-    switch (auth.roles) {
+    switch (auth?.peran) {
       case "Customer":
         return setRoutes(customerRoutes);
       case "Technician":
@@ -31,7 +32,7 @@ const TheContent = () => {
       case "Chief":
         return setRoutes(chiefRoutes);
     }
-  }, []);
+  }, [auth]);
 
   return (
     <main className="c-main">
