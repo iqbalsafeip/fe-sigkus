@@ -21,7 +21,9 @@ export const isLogin = () => (dispatch) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log("data : ", res.data);
+
+        dispatch({ type: "SET_ROLE", payload: res?.data?.peran });
         dispatch({ type: "SET_USER", payload: res.data });
         dispatch({ type: "SET_LOGIN", payload: true });
         dispatch({ type: "SET_TOKEN", payload: token });
@@ -39,6 +41,7 @@ export const login = (data) => (dispatch) => {
   })
     .then(function (response) {
       console.log(response);
+      dispatch({ type: "SET_ROLE", payload: response?.data?.user.peran });
       dispatch({ type: "SET_LOGIN", payload: true });
       dispatch({ type: "SET_LOADING", payload: false });
       dispatch({ type: "SET_USER", payload: response.data.user });
@@ -62,10 +65,10 @@ export const createUser = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
     axios({
       method: "POST",
-      url: BASE_URL + "user/signup",
+      url: BASE_URL + "auth/local/register",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearier ${localStorage.getItem("token")}`,
+        Authorization: `bearier ${getItem("token")}`,
       },
       data: data,
     })
@@ -88,6 +91,77 @@ export const updateData = (data) => (dispatch) => {
         Authorization: `bearier ${localStorage.getItem("token")}`,
       },
       data: data.data,
+    })
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (response) {
+        reject(response);
+      });
+  });
+};
+export const getUser = (peran) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "GET",
+      url: BASE_URL + "users?filters[peran][$contains]=" + peran,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (response) {
+        reject(response);
+      });
+  });
+};
+export const getPertanyaan = (peran) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "GET",
+      url: BASE_URL + "pertanyaans",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (response) {
+        reject(response);
+      });
+  });
+};
+export const addPertanyaan = (data) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(BASE_URL + "pertanyaans", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then(function (response) {
+        resolve(response);
+      })
+      .catch(function (response) {
+        reject(response);
+      });
+  });
+};
+export const deleteUser = (id) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: "DELETE",
+      url: BASE_URL + "users/" + id,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
       .then(function (response) {
         resolve(response);

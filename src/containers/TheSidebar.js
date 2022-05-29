@@ -15,7 +15,7 @@ import {
 import CIcon from "@coreui/icons-react";
 
 // sidebar nav config
-import navigation, { customerNav } from "./_nav";
+import navigation, { customerNav, staffNav } from "./_nav";
 
 const TheSidebar = () => {
   const dispatch = useDispatch();
@@ -29,11 +29,11 @@ const TheSidebar = () => {
       case "Technician":
         return setNav(customerNav);
       case "Staff":
-        return setNav(customerNav);
+        return setNav(staffNav);
       case "Chief":
         return setNav(customerNav);
     }
-  }, []);
+  }, [role]);
   return (
     <CSidebar
       show={show}

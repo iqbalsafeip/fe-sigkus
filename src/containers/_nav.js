@@ -118,6 +118,88 @@ const _nav = [
   },
 ];
 
+export const staffNav = [
+  {
+    _tag: "CSidebarNavItem",
+    name: "Dashboard",
+    to: "/dashboard",
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+  },
+  {
+    _tag: "CSidebarNavDropdown",
+    name: "Data Main",
+    route: "/agenda-surat",
+    icon: (
+      <CIcon name="cil-envelope-closed" customClasses="c-sidebar-nav-icon" />
+    ),
+    _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "Problem Data",
+        to: "/surat/buat",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Managing Report",
+        to: "/surat-masuk",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Handling",
+        to: "/surat-keluar",
+      },
+    ],
+  },
+  {
+    _tag: "CSidebarNavDropdown",
+    name: "Data Master",
+    route: "/data-master",
+    icon: "cil-layers",
+    _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Pertanyaan",
+        to: "/pertanyaan",
+      },
+    ],
+  },
+  {
+    _tag: "CSidebarNavDropdown",
+    name: "User",
+    icon: "cil-settings",
+    _children: [
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Customers",
+        to: "/customers",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Technicians",
+        to: "/technicians",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Chiefs",
+        to: "/chiefs",
+      },
+      {
+        _tag: "CSidebarNavItem",
+        name: "Data Staff",
+        to: "/staffs",
+      },
+    ],
+  },
+  ,
+  {
+    _tag: "CSidebarNavItem",
+    name: "Lihat Peta Permasalahan",
+    icon: "cil-people",
+    route: "/peta-permasalahan",
+    to: "/peta-permasalahan",
+  },
+];
+
 export const customerNav = [
   {
     _tag: "CSidebarNavItem",

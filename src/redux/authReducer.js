@@ -1,7 +1,7 @@
 const initialState = {
   is_login: false,
   users: [],
-  roles: "Customer",
+  roles: "",
   user: {},
 };
 
@@ -12,7 +12,7 @@ const authReducer = (state = initialState, action) => {
     case "SET_USERS":
       return { ...state, users: action.value };
     case "SET_ROLE":
-      return { ...state, roles: action.value };
+      return { ...state, roles: action.payload };
     case "CREATE_ROLE":
       return { ...state, roles: [...state.roles, action.value] };
     case "DELETE_ROLE":

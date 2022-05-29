@@ -55,6 +55,102 @@ const customerDashboard = React.lazy(() => import("./views/customer/index"));
 
 // staff
 const staffDashboard = React.lazy(() => import("./views/staff/index"));
+const customerData = React.lazy(() => import("./views/staff/customerData"));
+const tambahDataCustomer = React.lazy(() =>
+  import("./views/staff/tambahDataCustomer")
+);
+const staffData = React.lazy(() => import("./views/staff/staffData"));
+const tambahDataStaff = React.lazy(() =>
+  import("./views/staff/tambahDataStaff")
+);
+const techniciansData = React.lazy(() =>
+  import("./views/staff/techniciansData")
+);
+const tambahDataTechnicians = React.lazy(() =>
+  import("./views/staff/tambahDataTechnicians")
+);
+const chiefData = React.lazy(() => import("./views/staff/chiefData"));
+const tambahDataChief = React.lazy(() =>
+  import("./views/staff/tambahDataChief")
+);
+const pertanyaan = React.lazy(() => import("./views/staff/pertanyaan"));
+const tambahPertanyaan = React.lazy(() =>
+  import("./views/staff/tambahPertanyaan")
+);
+
+export const staffRoutes = [
+  {
+    path: "/",
+    exact: true,
+    name: "Home",
+  },
+  {
+    path: "/dashboard",
+    exact: true,
+    name: "Dashboard",
+    component: staffDashboard,
+  },
+  {
+    path: "/customers",
+    exact: true,
+    name: "CustomerData",
+    component: customerData,
+  },
+  {
+    path: "/customers/add",
+    exact: true,
+    name: "CustomerDataAdd",
+    component: tambahDataCustomer,
+  },
+  {
+    path: "/staffs",
+    exact: true,
+    name: "staffs",
+    component: staffData,
+  },
+  {
+    path: "/staffs/add",
+    exact: true,
+    name: "staffsadd",
+    component: tambahDataStaff,
+  },
+  {
+    path: "/technicians",
+    exact: true,
+    name: "CustomerData",
+    component: techniciansData,
+  },
+  {
+    path: "/technicians/add",
+    exact: true,
+    name: "CustomerDataAdd",
+    component: tambahDataTechnicians,
+  },
+  {
+    path: "/chiefs",
+    exact: true,
+    name: "CustomerData",
+    component: chiefData,
+  },
+  {
+    path: "/chiefs/add",
+    exact: true,
+    name: "CustomerDataAdd",
+    component: tambahDataChief,
+  },
+  {
+    path: "/pertanyaan",
+    exact: true,
+    name: "CustomerDataAdd",
+    component: pertanyaan,
+  },
+  {
+    path: "/pertanyaan/add",
+    exact: true,
+    name: "CustomerDataAdd",
+    component: tambahPertanyaan,
+  },
+];
 
 // chief
 const chiefDashboard = React.lazy(() => import("./views/chief/index"));
@@ -243,19 +339,6 @@ export const chiefRoutes = [
     exact: true,
     name: "Dashboard",
     component: chiefDashboard,
-  },
-];
-export const staffRoutes = [
-  {
-    path: "/",
-    exact: true,
-    name: "Home",
-  },
-  {
-    path: "/dashboard",
-    exact: true,
-    name: "Dashboard",
-    component: staffDashboard,
   },
 ];
 

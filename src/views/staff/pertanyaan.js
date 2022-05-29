@@ -16,28 +16,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteDataPegawai, getAllPegawai } from "src/redux/dataPegawaiActions";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import {
+  deleteUser,
+  getCustomers,
+  getPertanyaan,
+  getUser,
+} from "src/redux/actions";
 
-const fields = [
-  "no",
-  "photo",
-  "nip",
-  "nama",
-  "jenis_kelamin",
-  "tempat_lahir",
-  "tgl_lahir",
-  "no_telp",
-  "email",
-  "alamat",
-  "show_details",
-];
+const fields = ["no", "pertanyaan", "kepentingan", "show_details"];
 
-const DataPegawai = (props) => {
+const CustomerData = (props) => {
   const dispatch = useDispatch();
 
   const [details, setDetails] = React.useState([]);
 
   const dataPegawai = useSelector((state) => state.dataPegawai);
-
+  const [data, setData] = React.useState([]);
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
     let newDetails = details.slice();
@@ -59,22 +53,31 @@ const DataPegawai = (props) => {
       showCancelButton: true,
     }).then((res) => {
       if (res.isConfirmed) {
-        dispatch(deleteDataPegawai(id)).then(() => {
+        dispatch(deleteUser(id)).then(() => {
           Swal.fire({
             title: "Berhasil",
             text: "berhasil menghapus data",
             icon: "success",
             confirmButtonText: "Tutup",
           });
+          dispatch(getPertanyaan("Staff"))
+            .then((res) => {
+              console.log(res);
+              setData((data) => res.data.data.map((e) => e.attributes));
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         });
       }
     });
   };
 
   React.useEffect(() => {
-    dispatch(getAllPegawai())
+    dispatch(getPertanyaan("Staff"))
       .then((res) => {
         console.log(res);
+        setData((data) => res.data.data.map((e) => e.attributes));
       })
       .catch((err) => {
         console.log(err);
@@ -87,16 +90,16 @@ const DataPegawai = (props) => {
         <CCol xs="12" lg="12">
           <CCard>
             <CCardHeader>
-              Kategori Surat
+              Data Staff
               <div className="card-header-actions">
-                <Link className="btn btn-primary" to="data-pegawai/tambah">
+                <Link className="btn btn-primary" to="pertanyaan/add">
                   Tambah Data
                 </Link>
               </div>
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={dataPegawai.pegawai}
+                items={data}
                 fields={fields}
                 itemsPerPage={5}
                 pagination
@@ -105,13 +108,6 @@ const DataPegawai = (props) => {
                 hover
                 sorter
                 scopedSlots={{
-                  actions: (item) => (
-                    <td>
-                      <CButton width={6}>
-                        <CIcon name="cil-trash" />
-                      </CButton>
-                    </td>
-                  ),
                   show_details: (item, index) => {
                     return (
                       <td className="py-2">
@@ -166,29 +162,6 @@ const DataPegawai = (props) => {
                     );
                   },
                   no: (item, index) => <td>{index + 1}</td>,
-                  jenis_kelamin: (item) => (
-                    <td>
-                      {item.jenis_kelamin === "P" ? "Perempuan" : "Laki-Laki"}
-                    </td>
-                  ),
-                  photo: (item) => (
-                    <td>
-                      <CImg
-                        src={
-                          "http://localhost:8080/public/photo_file/" +
-                          item.photo_file
-                        }
-                        className="c-avatar-img"
-                        alt="admin@bootstrapmaster.com"
-                        style={{
-                          width: 30,
-                          height: 30,
-                          backgroundPosition: "center",
-                          backgroundSize: "cover",
-                        }}
-                      />
-                    </td>
-                  ),
                 }}
               />
             </CCardBody>
@@ -199,4 +172,4 @@ const DataPegawai = (props) => {
   );
 };
 
-export default DataPegawai;
+export default CustomerData;
